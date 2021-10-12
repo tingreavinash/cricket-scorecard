@@ -56,7 +56,6 @@ public class Team {
             int ballCount;
             for (ballCount = 1; ballCount <= 6 && totalWickets != teamOut; ballCount++) {
 
-
                 String currentBall = sc.nextLine();
                 while (!Validations.isBallValid(currentBall)) {
                     System.out.println("Please enter valid score (integer / W / Wd / N)");
@@ -78,7 +77,7 @@ public class Team {
                         strikerPlayer = players[nextPlayerIndex];
                         nextPlayerIndex++;
                     } else {
-                        strikerPlayer = null;
+                        toggleStrike();
                     }
                 } else {
                     int runCount = Integer.parseInt(currentBall);
