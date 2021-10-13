@@ -45,10 +45,12 @@ public class Team {
         int nextPlayerIndex = 2;
 
         // Calculate the wickets at which team to be out
-        int teamOut = totalPlayers;
-        if (totalPlayers % 2 == 1) {
+        //int teamOut = totalPlayers;
+        int teamOut = totalPlayers - 1;
+
+        /*if (totalPlayers % 2 == 1) {
             teamOut--;
-        }
+        }*/
 
         // Get ball by ball input
         for (int currentOver = 1; currentOver <= totalOvers && totalWickets != teamOut; currentOver++) {
@@ -79,7 +81,34 @@ public class Team {
                     } else {
                         toggleStrike();
                     }
-                } else {
+                } else if (currentBall.startsWith("R")){
+                    char c = currentBall.toCharArray()[1];
+                    int run  = Character.getNumericValue(c);
+
+                    strikerPlayer.setCurrentScore(strikerPlayer.getCurrentScore() + run);
+                    totalRuns += run;
+
+                    if (run % 2 == 0) {
+                        nonstrikerPlayer.setOut(true);
+                        totalWickets++;
+                        if (nextPlayerIndex < totalPlayers) {
+                            nonstrikerPlayer = players[nextPlayerIndex];
+                            nextPlayerIndex++;
+                        } else {
+                            nonstrikerPlayer = null;
+                        }
+                    }else{
+                        strikerPlayer.setOut(true);
+                        totalWickets++;
+                        if (nextPlayerIndex < totalPlayers) {
+                            strikerPlayer = players[nextPlayerIndex];
+                            nextPlayerIndex++;
+                        } else {
+                            strikerPlayer = null;
+                        }
+                    }
+
+                }else {
                     int runCount = Integer.parseInt(currentBall);
                     strikerPlayer.setCurrentScore(strikerPlayer.getCurrentScore() + runCount);
                     totalRuns += runCount;
@@ -121,7 +150,7 @@ public class Team {
                 playerName += "*";
             }
             System.out.println(playerName + "\t\t\t\t\t"
-                    + players[i].getCurrentScore() + "\t\t" + players[i].getFours() + "\t"
+                    + players[i].getCurrentScore() + "\t\t\t" + players[i].getFours() + "\t"
                     + players[i].getSixes() + "\t" + players[i].getBalls());
 
         }

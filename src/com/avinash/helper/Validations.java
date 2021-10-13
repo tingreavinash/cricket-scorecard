@@ -3,7 +3,7 @@ package com.avinash.helper;
 public class Validations {
 
     public static boolean isBallValid(String ball) {
-        return ball.equals("Wd") || ball.equals("N") || ball.equals("W") || isIntegerValue(ball);
+        return ball.equals("Wd") || ball.equals("N") || ball.equals("W") || ball.startsWith("R") || isIntegerValue(ball);
     }
 
     public static boolean isDeliveryValid(String ball) {
